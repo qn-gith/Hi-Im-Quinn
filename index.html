@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
+    <title>Hi I'm Quinn</title>
+    <link rel="icon" type="image/x-icon" href="./img/icon-portfolio-web.png">
+    <style>
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div id="loading-logo">
+            <img src="./img/hi-im-quinn.png" alt="Logo" style="width: 100%; height: 100%;"> <!-- Replace with your logo image -->
+        </div>
+    </div>
+    <div class="overlay" onclick="closeMenu()"></div>
+    <header id="masthead">
+        <div class="header-container">
+            <div class="header-image">
+                <a href="index.html">
+                    <img src="./img/hi-im-quinn.png" alt="Hi, I'm Quinn" width="210px" height="auto">
+                </a>
+            </div>
+            <div class="menu-icon" onclick="toggleMenu()">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <nav id="site-navigation" class="main-navigation">
+                <ul>
+                    <li><a href="about.html"
+>ABOUT</a></li>
+                    <li><a href="index.html">WORK</a></li>
+                    <li><a href="contact.html"
+>CONTACT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="button-container">
+            <div class="button-item">
+                <a href="branding.html" class="button">
+                    <span>BRANDING</span>
+                    <img src="./img/cover-branding.jpg" alt="cover-branding" width="409.5px" height="234.5px">
+                </a>
+                <a href="illustration.html" class="button">
+                    <span>ILLUSTRATION</span>
+                    <img src="./img/cover-illustration.jpg" alt="cover-illustration" width="409.5px" height="234.5px">
+                </a>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p> © </p>
+        <img src="img/hi-im-quinn-b&w.png" alt="" width="auto" height="15px">
+        <p>2025</p>
+    </footer>
+    <script>
+        window.addEventListener('load', function() {
+    setTimeout(function() {
+        document.body.classList.add('loaded');
+    }, 1500); 
+});
+window.addEventListener('load', function() {
+    setTimeout(function() {
+        document.body.classList.add('loaded');
+    }, 1500); 
+});
+
+        function toggleMenu() {
+            var menu = document.querySelector('.main-navigation');
+            var menuIcon = document.querySelector('.menu-icon');
+            var overlay = document.querySelector('.overlay');
+            menu.classList.toggle('active');
+            menuIcon.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            var menu = document.querySelector('.main-navigation');
+            var menuIcon = document.querySelector('.menu-icon');
+            var overlay = document.querySelector('.overlay');
+            menu.classList.remove('active');
+            menuIcon.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+window.addEventListener('wheel', function(event) {
+    if (event.deltaY !== 0) {
+        event.preventDefault();
+        
+        var scrollStep = event.deltaY > 0 ? 100 : -100; 
+        
+        var scrollPosition = window.scrollY + scrollStep;
+        
+        window.scrollTo({
+            top: scrollPosition,
+            behavior: 'smooth'
+        });
+    }
+});
+document.addEventListener('DOMContentLoaded', function() {
+    var currentPage = window.location.pathname.split('/').pop();
+    var navLinks = document.querySelectorAll('.main-navigation a');
+
+    navLinks.forEach(function(link) {
+        var linkPage = link.getAttribute('href').split('/').pop();
+        if (linkPage === currentPage) {
+            link.classList.add('active');
+        }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+        if (!localStorage.getItem('hasVisited')) {
+            setTimeout(function() {
+                document.body.classList.add('loaded');
+                localStorage.setItem('hasVisited', 'true');
+            }, 1500); 
+        } else {
+            document.getElementById('loading-screen').style.display = 'none';
+            document.body.classList.add('loaded');
+        }
+    });
+
+    function toggleMenu() {
+        var menu = document.querySelector('.main-navigation');
+        var menuIcon = document.querySelector('.menu-icon');
+        var overlay = document.querySelector('.overlay');
+        menu.classList.toggle('active');
+        menuIcon.classList.toggle('active');
+        overlay.classList.toggle('active');
+    }
+
+    function closeMenu() {
+        var menu = document.querySelector('.main-navigation');
+        var menuIcon = document.querySelector('.menu-icon');
+        var overlay = document.querySelector('.overlay');
+        menu.classList.remove('active');
+        menuIcon.classList.remove('active');
+        overlay.classList.remove('active');
+    }
+
+    window.addEventListener('wheel', function(event) {
+        if (event.deltaY !== 0) {
+            event.preventDefault();
+            var scrollStep = event.deltaY > 0 ? 100 : -100;
+            var scrollPosition = window.scrollY + scrollStep;
+            window.scrollTo({
+                top: scrollPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var currentPage = window.location.pathname.split('/').pop();
+        var navLinks = document.querySelectorAll('.main-navigation a');
+
+        navLinks.forEach(function(link) {
+            var linkPage = link.getAttribute('href').split('/').pop();
+            if (linkPage === currentPage) {
+                link.classList.add('active');
+            }
+        });
+    });
+
+
+
+
+
+    </script>
+    
+    
+    
+
+</body>
+</html>

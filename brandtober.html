@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
+    <title>Hi I'm Quinn</title>
+    <link rel="icon" type="image/x-icon" href="./img/icon-portfolio-web.png">
+    <style>
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+body {
+    overflow-y: auto;
+    position: relative;
+    font-family: "Anton", sans-serif, "Roboto Flex", sans-serif;
+}
+
+* {box-sizing: border-box;}
+    
+/* img {
+    -webkit-user-drag: none; 
+    user-drag: none;  Disable drag in all browsers 
+} */
+h1 {
+    margin: 50px 50px 0;
+    color: #c24e76;
+    font-size: 6rem;
+    font-weight: 300;
+}
+.intro-brandtober {
+    margin: 0 50px 50px;
+    font-family: "Roboto Thin", sans-serif;
+    color: #000;
+    font-size: 1.5rem;
+    font-weight: 100;
+    text-align: left;
+    line-height: 1.5;
+}
+.intro-brandtober .highlight {
+    color: black; 
+}
+
+.project-list-container {
+    position: relative;
+    height: auto; /* Adjust height based on content */
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.project-list {
+    margin-left: 50px;
+    display: grid;
+    grid-auto-flow: column; /* Ensure items are placed in columns */
+    overflow-x: auto; /* Horizontal scrolling */
+    overflow-y: hidden; /* Allow vertical scrolling when horizontal scrolling is complete */
+    padding-bottom: 10px; /* Space for invisible scrollbar */
+    white-space: nowrap; /* Prevent wrapping to new lines */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+.project {
+    margin-right: 70px;
+    margin-bottom: 50px;
+    display: flex;
+    cursor: pointer;
+    width: 350px; /* Adjust the size of each project box */
+    height: fit-content; 
+    box-sizing: border-box;
+    justify-content: center;
+}
+.project-content {
+    margin: 0 auto;
+}
+
+/* Place odd-numbered projects in the first row */
+.project:nth-child(odd) {
+    grid-row: 1; /* Place in the first row */
+}
+
+/* Place even-numbered projects in the second row */
+.project:nth-child(even) {
+    grid-row: 2; /* Place in the second row */
+}
+
+/* Hide scrollbar for WebKit browsers */
+.project-list::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for other browsers */
+.project-list {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+
+.project-title-info {
+    display: flex;
+    align-items: left;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    flex-direction: column;
+}
+.project-title {
+    font-family: "Roboto Flex", sans-serif;
+    font-weight: 600;
+    font-size: 18pt;
+    color: #c24e76;
+    text-align: left;
+}
+.project-info {
+    font-family: "Roboto Flex", sans-serif;
+    font-weight: 200;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    text-align: left;
+    font-size: 10pt;
+    color: #000;
+}
+.project-info div {
+    margin-right: 10px;
+    text-decoration: underline;
+
+}
+
+
+
+/* PROJECT POPUP OVERLAY */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    padding: 50px;
+    box-sizing: border-box;
+    z-index: 200;
+    margin: 0;
+    overflow-y: scroll;
+}
+
+.popup-content {
+    max-width: 1250px;
+    margin: 0 auto;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    margin-top: -30px;
+}
+
+/* First row: Title and info */
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.popup-title h2 {
+    font-size: 40pt;
+    font-weight: 700;
+    color: #c24e76;
+    font-family: "gotham", sans-serif;
+}
+
+.popup-info {
+    text-align: right;
+    font-size: 14pt;
+    font-weight: 100;
+    color: #000;
+    font-family: "gotham", sans-serif;
+}
+
+/* Second row: Description and image */
+.popup-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex: 1;
+    margin-top: -20px;
+}
+
+.popup-description {
+    flex: 1;
+    font-size: 19pt;
+    font-weight: 200;
+    line-height: 1.5;
+    color: #c24e76;
+    font-family: 'roboto flex', sans-serif;
+    padding-right: 100px;
+    margin-top: -20px;
+}
+
+.popup-image img {
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+}
+
+/* Close button */
+.close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    cursor: pointer;
+    color: #c24e76;
+    display: none; /* Hide the close button */
+    transition: transform 0.4s ease-in-out;
+}
+.close img {
+    width: 30px;
+    height: auto;
+}
+
+.close:hover {
+    transform: scale(1.2); /* Rotates 180 degrees and scales to 1.2 times the original size */
+}
+
+/* Show the close button only when the popup is active */
+.popup.active .close {
+    display: inline-block; /* Show the close button when popup is active */
+}
+
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 200;
+}
+
+
+
+
+footer {
+    display: flex;
+    text-align: center;
+    align-items: center; /* vertically */
+    justify-content: center; /* horizontally */
+}
+footer img {
+    margin: auto 5px;
+}
+footer p {
+    font-family: "Roboto Thin", sans-serif; /* Use a font that has a thin weight */
+    font-size: small;
+}
+
+
+/* Styling for the fixed "X" button */
+#closeBtn {
+    position: fixed;
+    top: 20px;
+    right: 30px; /* Add more horizontal spacing */
+    width: 50px; 
+    height: auto;
+    cursor: pointer;
+    z-index: 199; 
+    display: inline-block;
+    transition: transform 0.4s ease-in-out;
+}
+
+#closeBtn img {
+    width: 30px; /* Adjust the size of the image here */
+    height: 30px;
+    transition: transform 0.4s ease-in-out;
+}
+/* Hover effect: rotate and scale */
+#closeBtn:hover img {
+    transform: rotate(180deg) scale(1.2); /* Rotates 180 degrees and scales to 1.2 times the original size */
+}
+
+/* Scroll-to-Top Arrow Styling */
+#scrollTopBtn {
+    opacity: 0;
+    position: fixed;
+    bottom: 20px;
+    right: 40px;
+    width: 50px; /* Adjust size as needed */
+    height: auto;
+    cursor: pointer;
+    z-index: 1000; /* Ensure it stays on top */
+    transition: none 0.3s ease; /* Transition for the shadow effect */
+}
+
+#scrollTopBtn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+#scrollTopBtn:hover {
+    animation: bounce 1s infinite alternate ease-in-out; /* Bounce animation */
+}
+
+
+
+/* Responsive styles for mobile */
+@media (max-width: 768px) {
+    html, body {
+        overflow-x: hidden; /* This ensures no horizontal scrolling occurs */
+        overflow-y: auto; /* Ensure vertical scrolling is enabled */
+        height: 100%;
+    }
+    h1 {
+        font-size: 50pt;
+        margin: 50px 15px 0;
+    }
+    .intro-brandtober {
+        font-size: 15pt;
+        margin: 0 15px 50px;
+    }
+    .project-list-container {
+        max-width: 400px;
+        height: auto; /* Allow height to adjust automatically */
+        padding: 0 15px; /* Add some padding to the sides */
+        /* overflow-x: hidden; Disable horizontal scrolling */
+        overflow-y: auto; /* Enable vertical scrolling */
+    }
+    .project-list {
+        display: block;
+        margin-left: 0; /* Remove the left margin */
+        overflow-x: hidden; /* Disable horizontal scrolling */
+        overflow-y: auto; /* Enable vertical scrolling */
+    }
+    .project {
+        margin-right: 0;
+        margin-bottom: 20px; /* Adjust spacing between projects */
+        width: 100%; /* Make projects full-width to avoid overflow */
+    }
+    .popup {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        padding: 5px;
+        box-sizing: border-box;
+    }
+    .popup-content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; 
+        justify-content: flex-start;
+        margin: 0 auto;
+        max-width: 100%;
+        text-align: left;
+    }
+    .popup-header {
+        display: block;
+        text-align: left;
+        padding-left: 10px;
+    }
+    .popup-title h2 {
+        font-size: 50pt;
+        font-weight: 900;
+        text-align: left;
+        margin-bottom: -20px;
+    }
+    .popup-info {
+        text-align: left;
+        font-size: 12pt;
+    /*    background-color: #c24e76;*/
+    }
+    .popup-body {
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+    .popup-description {
+        font-size: 11pt;
+    /*    background-color: #ffe4cd; */
+        padding: 20px 10px 0;
+        height: auto;
+    }
+    
+    .popup-image {
+        position: relative;
+    }
+
+    #closeBtn {
+        right: 10px;
+    }
+    
+    #scrollTopBtn {
+        width: 40px;
+        bottom: 30px;
+        right: 10px;
+    }
+
+    footer {
+    
+    width: 100%;
+    height: 35px; /* 70% of the original height (50px) */
+    z-index: 2;
+}
+
+    footer p,
+    footer img {
+        font-size: 70%; /* Make the content 30% smaller */
+    }
+}
+@media (max-width: 480px) {
+    #closeBtn {
+        right: 10px;
+    }
+    
+    #scrollTopBtn {
+        width: 40px;
+        bottom: 30px;
+        right: 10px;
+    }
+    
+    footer {
+        position: relative;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 35px; /* 70% of the original height (50px) */
+        z-index: 2; /* Ensure it appears above other content */
+    }
+
+    footer p,
+    footer img {
+        font-size: 70%; /* Make the content 30% smaller */
+    }
+}
+    </style>
+</head>
+<body>
+    <h1>
+        Brandtober
+    </h1>
+    <div class="intro-brandtober">
+        <p>
+            During <span class="highlight">Brandtober</span>, I dedicated 3-5 days to each design, 
+            from initial concept development to final execution. 
+            This process included brainstorming ideas, designing logos, 
+            creating brand identity elements, and designing packaging for 
+            both existing and conceptual brands. 
+            <br>It was an intensive but rewarding experience, allowing me 
+            to push my creative boundaries and refine my design skills.       
+        </p>
+        <p>
+            This became my ritual (almost) every year.
+        </p>
+    </div> 
+<div class="project-list-container">
+    <div class="project-list">
+        <div class="project" data-popup="popup1">
+            <div class="project-content">
+                <div>
+                    <img src="./img/brandtober-project-cover-rafters@2x-100.jpg" alt="" width="350px" height="auto">
+                </div>
+                <div class="project-title-info">
+                    <div class="project-title">RAFTERS</div> 
+                    <div class="project-info">
+                        <div>Bar</div>
+                        <div>October 2023</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="project" data-popup="popup2">
+            <div class="project-content">
+                <div>
+                    <img src="./img/brandtober-project-cover-poem@2x-100.jpg" alt="" width="350px" height="auto">
+                </div>
+                <div class="project-title-info">
+                    <div class="project-title">KISSA POEM</div> 
+                    <div class="project-info">
+                        <div>Coffee shop</div>
+                        <div>October 2023</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="project" data-popup="popup3">
+            <div class="project-content">
+                <div>
+                    <img src="./img/brandtober-project-cover-enkitchen@2x-100.jpg" alt="" width="350px" height="auto">
+                </div>
+                <div class="project-title-info">
+                    <div class="project-title">ÉN KITCHEN</div> 
+                    <div class="project-info">
+                        <div>Restaurant</div>
+                        <div>October 2023</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="project" data-popup="popup4">
+            <div class="project-content">
+                <div>
+                    <img src="./img/brandtober-project-cover-missminhtattoo@2x-100.jpg" alt="" width="350px" height="auto">
+                </div>
+                <div class="project-title-info">
+                    <div class="project-title">MISS MINH TATTOO</div> 
+                    <div class="project-info">
+                        <div>Tattoo shop</div>
+                        <div>October 2023</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="project" data-popup="popup5">
+            <div class="project-content">
+                <div>
+                    <img src="./img/brandtober-project-cover-mush@2x-100.jpg" alt="" width="350px" height="auto">
+                </div>
+                <div class="project-title-info">
+                    <div class="project-title">MUSH OVERNIGHT OATS</div> 
+                    <div class="project-info">
+                        <div>Packaging</div>
+                        <div>September 2023</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="project" data-popup="popup6">
+            <div class="project-content">
+                <div>
+                    <img src="./img/brandtober-project-cover-nmn@2x-100.jpg" alt="" width="350px" height="auto">
+                </div>
+                <div class="project-title-info">
+                    <div class="project-title">NỜ MỜ NỜ</div> 
+                    <div class="project-info">
+                        <div>Jewelry store</div>
+                        <div>October 2023</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="project" data-popup="popup7">
+            <div class="project-content">
+                <div>
+                    <img src="./img/brandtober-project-cover-vantea@2x-100.jpg" alt="" width="350px" height="auto">
+                </div>
+                <div class="project-title-info">
+                    <div class="project-title">VÂN TEA</div> 
+                    <div class="project-info">
+                        <div>Tea shop</div>
+                        <div>October 2023</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="project" data-popup="popup8">
+            <div class="project-content">
+                <div>
+                    <img src="./img/brandtober-project-cover-vinorosso@2x-100.jpg" alt="" width="350px" height="auto">
+                </div>
+                <div class="project-title-info">
+                    <div class="project-title">VINOROSSO</div> 
+                    <div class="project-info">
+                        <div>Packaging</div>
+                        <div>September 2023</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="project" data-popup="popup9">
+            <div class="project-content">
+                <div>
+                    <img src="./img/brandtober-project-cover-pineapple@2x-100.jpg" alt="" width="350px" height="auto">
+                </div>
+                <div class="project-title-info">
+                    <div class="project-title">DELIGHT PINEAPPLE JUICE</div> 
+                    <div class="project-info">
+                        <div>Packaging</div>
+                        <div>September 2023</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+    <div class="project-popup-overlay">  
+        <div class="popup" id="popup1">
+            <span class="close" id="closePopup1">
+                <img src="./img/close-button@2x-8.png" alt="Close">
+            </span>
+            <div class="popup-content">
+                <!-- First row: Project title on the left, project info on the right -->
+                <div class="popup-header">
+                    <div class="popup-title">
+                        <h2>RAFTERS</h2>
+                    </div>
+                    <div class="popup-info">
+                        <p>BAR<br>October 2023</p>
+                    </div>
+                </div>
+                <!-- Second row: Project details on the left, image on the right -->
+                <div class="popup-body">
+                    <div class="popup-description">
+                        <p>
+                            St. Patrick's Blue anchors the scheme, making it feel mature and grounded.
+                            Ripe Mango Yellow brings a bright, optimistic mood.<br><br>
+                            This classic combination creates a balanced scheme that would be great for a sports bar.
+                        </p>
+                    </div>
+                    <div class="popup-image">
+                        <img src="./img/brandtober-rafters@2x.jpg" alt="Rafters Sports Bar" width="300px">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="popup" id="popup2">
+            <span class="close" id="closePopup2">
+                <img src="./img/close-button@2x-8.png" alt="Close">
+            </span>
+            <div class="popup-content">
+                <!-- First row: Project title on the left, project info on the right -->
+                <div class="popup-header">
+                    <div class="popup-title">
+                        <h2>KISSA POEM</h2>
+                    </div>
+                    <div class="popup-info">
+                        <p>COFFEE SHOP<br>October 2023</p>
+                    </div>
+                </div>
+                <!-- Second row: Project details on the left, image on the right -->
+                <div class="popup-body">
+                    <div class="popup-description">
+                        <p>The <span class="thin-underline">red</span> color is inspired by the iconic 
+                            <span class="thin-underline">landmark Kobe Port Tower</span>. 
+                            <br>The <span class="thin-underline">retro design</span> 
+                            is the image of the owner, which offering a 
+                            cozy and inviting atmosphere to enjoy a 
+                            delightful cup of coffee.
+                        
+                        </p>
+                    </div>
+                    <div class="popup-image">
+                        <img src="./img/brandtober-kissapoem@2x.jpg" alt="Kissa Poem Cafe" width="300px">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="popup" id="popup3">
+            <span class="close" id="closePopup3">
+                <img src="./img/close-button@2x-8.png" alt="Close">
+            </span>
+            <div class="popup-content">
+                <!-- First row: Project title on the left, project info on the right -->
+                <div class="popup-header">
+                    <div class="popup-title">
+                        <h2>ÉN KITCHEN</h2>
+                    </div>
+                    <div class="popup-info">
+                        <p>RESTAURANT<br>October 2023</p>
+                    </div>
+                </div>
+                <!-- Second row: Project details on the left, image on the right -->
+                <div class="popup-body">
+                    <div class="popup-description">
+                        <p><span class="thin-underline">Red and gold</span> is a classic color combination known
+                            for <span class="thin-underline">stimulating the senses</span>, evoking a sense of 
+                            nostalgia for the target audience—Vietnamese 
+                            customers. <br> The logo features the initial 'E', 
+                            creatively illustrated as <span class="thin-underline">a frying pan</span> or a food 
+                            plate. The cursive 'E' adds a touch of elegance, 
+                            conveying a high-end image and a promise of quality.
+                        </p>
+                    </div>
+                    <div class="popup-image">
+                        <img src="./img/brandtober-enkitchen@2x.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="popup" id="popup4">
+            <span class="close" id="closePopup4">
+                <img src="./img/close-button@2x-8.png" alt="Close">
+            </span>
+            <div class="popup-content">
+                <!-- First row: Project title on the left, project info on the right -->
+                <div class="popup-header">
+                    <div class="popup-title">
+                        <h2>MISS MINH TATTOO</h2>
+                    </div>
+                    <div class="popup-info">
+                        <p>TATTOO SHOP<br>October 2023</p>
+                    </div>
+                </div>
+                <!-- Second row: Project details on the left, image on the right -->
+                <div class="popup-body">
+                    <div class="popup-description">
+                        <p>Miss Minh Tattoo draws inspiration from 
+                            traditional Vietnamese art, particularly 
+                            the timeless beauty of <span class="thin-underline">Vietnamese women</span> 
+                            as portrayed in historical artworks. <br>
+                            The design merges <span class="thin-underline">classic elegance with 
+                            a modern twist</span>, capturing the essence of 
+                            contemporary <span class="thin-underline">Vietnam nostalgia</span>.
+                        </p>
+                    </div>
+                    <div class="popup-image">
+                        <img src="./img/brandtober-missminhtattoo@2x.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="popup" id="popup5">
+            <span class="close" id="closePopup5">
+                <img src="./img/close-button@2x-8.png" alt="Close">
+            </span>
+            <div class="popup-content">
+                <!-- First row: Project title on the left, project info on the right -->
+                <div class="popup-header">
+                    <div class="popup-title">
+                        <h2>MUSH OVERNIGHT OATS</h2>
+                    </div>
+                    <div class="popup-info">
+                        <p>PACKAGING<br>October 2023</p>
+                    </div>
+                </div>
+                <!-- Second row: Project details on the left, image on the right -->
+                <div class="popup-body">
+                    <div class="popup-description">
+                        <p>
+                            Mush features a vibrant color palette designed 
+                            to <span class="thin-underline">highlight its diverse collection of flavors</span>.
+                            <br>The packaging features clear images of the ingredients, making it easy for customers to quickly spot and pick their favorite flavors.
+                        </p>
+                    </div>
+                    <div class="popup-image">
+                        <img src="./img/brandtober-mush@2x.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="popup" id="popup6">
+            <span class="close" id="closePopup6">
+                <img src="./img/close-button@2x-8.png" alt="Close">
+            </span>
+            <div class="popup-content">
+                <!-- First row: Project title on the left, project info on the right -->
+                <div class="popup-header">
+                    <div class="popup-title">
+                        <h2>NỜ MỜ NỜ </h2>
+                    </div>
+                    <div class="popup-info">
+                        <p>JEWELRY STORE<br>October 2023</p>
+                    </div>
+                </div>
+                <!-- Second row: Project details on the left, image on the right -->
+                <div class="popup-body">
+                    <div class="popup-description">
+                        <p>
+                            Nờ Mờ Nờ focuses on an elegant and feminine 
+                            image. The logo showcases the initials 'NMN', 
+                            crafted to resemble the facets of a diamond. 
+                            <br>A second logo features <span class="thin-underline">a tiara</span>, symbolizing 
+                            that <span class="thin-underline">every woman is a beauty queen</span> when 
+                            adorned with her finest jewelry.
+                        </p>
+                    </div>
+                    <div class="popup-image">
+                        <img src="./img/brandtober-nmnjewelry@2x.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="popup" id="popup7">
+            <span class="close" id="closePopup7">
+                <img src="./img/close-button@2x-8.png" alt="Close">
+            </span>
+            <div class="popup-content">
+                <!-- First row: Project title on the left, project info on the right -->
+                <div class="popup-header">
+                    <div class="popup-title">
+                        <h2>VÂN TEA</h2>
+                    </div>
+                    <div class="popup-info">
+                        <p>TEA SHOP<br>September 2023</p>
+                    </div>
+                </div>
+                <!-- Second row: Project details on the left, image on the right -->
+                <div class="popup-body">
+                    <div class="popup-description">
+                        <p>
+                            "Vân" (雲) = Cloud in Vietnamese.<span class="thin-underline"> A childlike character</span> was created to 
+                            appeal to young customers, while also 
+                            adding <span class="thin-underline">a playful personality</span> to the brand.
+                        </p>
+                    </div>
+                    <div class="popup-image">
+                        <img src="./img/brandtober-vantea@2x.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="popup" id="popup8">
+            <span class="close" id="closePopup8">
+                <img src="./img/close-button@2x-8.png" alt="Close">
+            </span>
+            <div class="popup-content">
+                <!-- First row: Project title on the left, project info on the right -->
+                <div class="popup-header">
+                    <div class="popup-title">
+                        <h2>VINOROSSO</h2>
+                    </div>
+                    <div class="popup-info">
+                        <p>PACKAGING<br>September 2023</p>
+                    </div>
+                </div>
+                <!-- Second row: Project details on the left, image on the right -->
+                <div class="popup-body">
+                    <div class="popup-description">
+                        <p>
+                            A simple Deep Red package features the bold, 
+                            embossed 'Vinorosso' logo, elegantly shaped 
+                            like <span class="thin-underline">a bunch of grapes</span>.
+                        </p>
+                    </div>
+                    <div class="popup-image">
+                        <img src="./img/brandtober-vinorosso@2x.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="popup" id="popup9">
+            <span class="close" id="closePopup9">
+                <img src="./img/close-button@2x-8.png" alt="Close">
+            </span>
+            <div class="popup-content">
+                <!-- First row: Project title on the left, project info on the right -->
+                <div class="popup-header">
+                    <div class="popup-title">
+                        <h2>DELIGHT PINEAPPLE JUICE</h2>
+                    </div>
+                    <div class="popup-info">
+                        <p>PACKAGING<br>September 2023</p>
+                    </div>
+                </div>
+                <!-- Second row: Project details on the left, image on the right -->
+                <div class="popup-body">
+                    <div class="popup-description">
+                        <p>The watercolor depiction of the frond 
+                            emphasizes the product's organic and 
+                            high quality nature. <br>The <span class="thin-underline">simple, straightforward 
+                            design</span> ensures customers can <span class="thin-underline">easily identify</span> 
+                            the product. 
+                        </p>
+                    </div>
+                    <div class="popup-image">
+                        <img src="./img/brandtober-pineapplejuice@2x.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+
+    <div id="closeBtn"><img src="./img/close-button@2x-8.png" alt=""></div>
+    <!-- Scroll-to-Top Arrow -->
+    <div id="scrollTopBtn">
+        <img src="./img/arrow-up.png" alt="Go to top">
+    </div>
+
+    <script src="script.js"></script>
+
+    <footer>
+        <p> © </p>
+        <img src="img/hi-im-quinn-b&w.png" alt="" width="auto" height="15px">
+        <p>2025</p>
+    </footer>
+    <script>
+        document.getElementById("closeBtn").addEventListener("click", function() {
+            window.location.href = "branding.html"; 
+        });
+
+        function scrollToTop(speed) {
+            let currentPosition = window.pageYOffset;
+            let targetPosition = 0;
+            let distance = currentPosition - targetPosition;
+
+            function step() {
+                currentPosition -= speed;
+                if (currentPosition <= targetPosition) {
+                    window.scrollTo(0, targetPosition);
+                } else {
+                    window.scrollTo(0, currentPosition);
+                    requestAnimationFrame(step);
+                }
+            }
+
+            step();
+        }
+
+        
+        var scrollTopBtn = document.getElementById("scrollTopBtn");
+
+        scrollTopBtn.addEventListener("click", function() {
+            scrollToTop(400);  
+        });
+        
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+    const projectList = document.querySelector('.project-list');
+
+    if (!projectList) {
+        console.error("Element with class 'project-list' not found.");
+        return;  
+    }
+
+    let isMouseDown = false;
+    let startX;
+    let scrollLeft;
+
+    projectList.addEventListener('mousedown', (e) => {
+        isMouseDown = true;
+        projectList.classList.add('active');  
+        startX = e.pageX - projectList.offsetLeft;  
+        scrollLeft = projectList.scrollLeft;  
+    });
+
+    projectList.addEventListener('mouseleave', () => {
+        isMouseDown = false;
+        projectList.classList.remove('active');  
+    });
+    projectList.addEventListener('mouseup', () => {
+        isMouseDown = false;
+        projectList.classList.remove('active');  
+    });
+
+    projectList.addEventListener('mousemove', (e) => {
+        if (!isMouseDown) return;  
+        e.preventDefault();  
+        const x = e.pageX - projectList.offsetLeft;  
+        const walk = (x - startX) * 2;  
+        projectList.scrollLeft = scrollLeft - walk;  
+    });
+
+    projectList.addEventListener('wheel', (e) => {
+        if (e.deltaY !== 0) {  
+            e.preventDefault();  
+            projectList.scrollLeft += e.deltaY * 2;  
+        }
+    });
+});
+
+
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+    const popups = document.querySelectorAll('.popup');
+    const triggers = document.querySelectorAll('[data-popup]');
+    const closeButtons = document.querySelectorAll('.close');
+    const popupOverlay = document.querySelector('.popup-overlay');
+
+    function openPopup(popup) {
+        popup.style.display = 'block';
+        popup.classList.add('active');
+        popupOverlay.style.display = 'block';
+    }
+
+    function closePopup(popup) {
+        popup.style.display = 'none';
+        popup.classList.remove('active');
+        popupOverlay.style.display = 'none';
+    }
+
+    triggers.forEach(trigger => {
+        trigger.addEventListener('click', function() {
+            const popupId = this.getAttribute('data-popup');
+            const popupToShow = document.getElementById(popupId);
+            if (popupToShow) {
+                openPopup(popupToShow);
+            }
+        });
+    });
+
+    closeButtons.forEach(closeButton => {
+        closeButton.addEventListener('click', function() {
+            const popup = this.closest('.popup');
+            closePopup(popup);
+        });
+    });
+
+    popupOverlay.addEventListener('click', function() {
+        popups.forEach(popup => closePopup(popup));
+    });
+});
+
+
+const projectList = document.querySelector('.project-list');
+const body = document.body;
+
+projectList.addEventListener('wheel', (e) => {
+    if (e.deltaY !== 0) {  
+        if ((projectList.scrollLeft + projectList.offsetWidth >= projectList.scrollWidth && e.deltaY > 0) ||
+            (projectList.scrollLeft <= 0 && e.deltaY < 0)) {
+            body.scrollBy({
+                top: e.deltaY,  
+                behavior: 'smooth'
+            });
+        } else {
+            e.preventDefault();  
+            projectList.scrollLeft += e.deltaY * 2;  
+        }
+    }
+});
+
+
+
+
+    </script> 
+</body>
+
+
+
+

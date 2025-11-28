@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
+    <title>Hi I'm Quinn</title>
+    <link rel="icon" type="image/x-icon" href="./img/icon-portfolio-web.png">
+    <style>
+* {box-sizing: border-box;}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Anton", sans-serif, "Roboto Flex", sans-serif;
+    text-align: center;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Set minimum height to full viewport height */
+}
+
+header {
+    background-color: #fff;
+    color: #333;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Make the header full width */
+    box-sizing: border-box;
+    position: relative;
+    z-index: 999; /* Ensure the header is above the content */
+}
+.header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.header-image {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+
+.header-image a {
+    display: inline-block; /* Ensure the link doesn't stretch */
+}
+
+#site-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-icon {
+    display: none; /* Initially hide on larger screens */
+    cursor: pointer;
+    z-index: 3; /* Place the menu icon above the content */
+}
+
+.main-navigation {
+    display: flex;
+    position: relative;
+    justify-content:center;
+    background-color: #fff;
+    align-items: center;
+    transition: .5s;
+    /*margin: 0 auto;*/
+    z-index: 1; /* Place the menu below the content */
+}
+ .main-navigation ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    top: 50%;
+    right: 0;
+}
+
+.main-navigation li {
+    margin: 20px 50px;
+    /*list-style: none;
+    float: left;*/
+    position: relative;
+     
+}
+
+.main-navigation a {
+    font-size: 30pt; /* <------ NAVIGATION FONT SIZE */
+    text-decoration: none;
+    color: #000;
+    /*position: relative;
+    z-index: 1;*/
+    transition: color 0.3s ease;
+}
+
+
+.main-navigation a:hover {
+    color: #000;
+}
+
+.main-navigation a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #000;
+    transition: width 0.2s ease;
+    border-radius: 150px;
+}
+
+.main-navigation a:hover::after {
+    width: 100%;
+}
+.main-navigation a.active::after {
+    width: 100%;
+}
+
+
+.menu-toggle {
+    margin-top: 20px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.work-menu-button {
+    margin-top: 30px;
+}
+.work-menu-button ul {
+    display: flex;
+    justify-content: space-between;
+    width: fit-content;
+    font-size: 17pt;
+    font-family: 'roboto flex', sans-serif;
+    font-weight: bolder;
+    font-style: italic;
+    list-style: none;
+    margin: 0 auto;
+    color: #bf4e76;
+}
+.work-menu-button li {
+    border: solid 2px #bf4e76;
+    padding: 5px 20px;
+    border-radius: 25px;
+    transition: background-color 0.3s, color 0.3s; /* Add transition for smooth effect */
+}
+.work-menu-button li:hover {
+    background-color: #bf4e76;
+    color: white;
+}
+.nav-work {
+    margin-top: 20px;
+}
+.nav-work ul {
+    overflow: hidden;
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    font-size: 17pt;
+    font-family: 'roboto flex', sans-serif;
+    font-weight: bolder;
+    font-style: italic;
+    list-style-type: none;
+    text-decoration: none;
+    margin: 0 auto;
+    color: #bf4e76;
+}
+.nav-work a {
+    color: #bf4e76;
+    display: inline-block;
+    text-decoration: none;
+    border: solid 2px #bf4e76;
+    padding: 5px 20px;
+    border-radius: 25px;
+    transition: background-color 0.3s, color 0.3s;
+    position: relative;
+}
+.nav-work a:hover {
+    background-color: #bf4e76;
+    color: #fff;
+}
+.nav-work a:hover, .nav-work li.active a { /* Modified */
+    background-color: #bf4e76;
+    color: #fff;
+}
+.navigation {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 50px;
+    margin-bottom: 30px;
+    opacity: 0;
+}
+.navigation a {
+    color: #8e8e8e;
+    font-family: "Roboto Flex", sans-serif;
+    font-size: 14pt;
+    text-decoration: none;
+}
+.navigation img {
+    width: 10px;
+    margin: auto 10px;
+}
+.branding-list-item {
+    flex-grow: 1;
+}
+.branding-list .branding-list-item {
+    position: relative;
+    margin: 10px;
+    overflow: hidden;
+}
+.branding-list {
+    display: flex;
+    flex-direction: column;
+    margin: 50px auto;
+    width: 600px;
+}
+.branding-list a {
+    transition: background-color 0.3s, border-radius 0.3s, color 0.3s; /* Add transition for smooth effect */
+    position: relative; /* Set position to relative for absolute positioning */
+    margin: 10px;
+}
+
+.branding-list img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 35px;
+    transition: opacity 0.3s;
+}
+.branding-list a::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background-color: #bf4e76;
+    color: fff;
+    transition: opacity 0.3s;
+    border-radius: 35px;
+}
+
+.branding-list a:hover::after {
+    opacity: 1;
+}
+
+.branding-list .branding-list-item::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 24px;
+    font-weight: 500;
+    border-radius: 35px;
+    font-family: "Roboto Flex", sans-serif;
+}
+
+.branding-list .branding-list-item:hover::after {
+    opacity: 1;
+}
+
+.scroll-top-button {
+    display: none; /* Hide by default */
+    position: fixed; /* Fixed position */
+    bottom: 20px; /* 20px from the bottom */
+    right: 20px; /* 20px from the right */
+    padding: 10px;
+    transition: transform 0.3s; /* Add transition for smooth effect */
+}
+.scroll-top-button:hover {
+    transform: scale(1.1); /* Slightly increase size on hover */
+}
+footer {
+    display: flex;
+    margin-top: auto;
+    text-align: center;
+    align-items: center; /* vertically */
+    justify-content: center; /* horizontally */
+    width: 100%;
+    position: relative;
+}
+footer img {
+    margin: auto 5px;
+}
+footer p {
+    font-family: "Roboto Thin", sans-serif; /* Use a font that has a thin weight */
+    font-size: small;
+}
+@media (min-width: 768px) {
+    
+    
+}
+/* Responsive styles for mobile */
+@media (max-width: 768px) {
+    body {
+        overflow: hidden; /* Prevent scrolling when the menu is open */
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+    .header-image {
+        margin-top: 30px;
+    
+    }
+    .main-navigation {
+        flex-direction: column;
+        align-items: flex-end;
+        background-color: #fff;
+        width: 100%;
+        display: none;
+        position: relative;
+        top: 40px;
+        right: 0;
+    }
+
+    .main-navigation.active {
+        display: flex;
+    }
+
+    .main-navigation ul {
+        flex-direction: column;
+        margin-right: 15px;
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        text-align: right;
+        margin-top: 100px;
+    }
+    .main-navigation.active ul {
+        display: flex;
+        flex-direction: column;
+    }
+    .main-navigation li {
+        margin: 15px 10px;
+        text-align: center; /* Align the text to the right */
+    }
+
+    .menu-icon {
+        display: block; /* Display on smaller screens */
+        position: absolute;
+        top: 25px;
+        right: 20px;
+        z-index: 7; /* Ensure the menu icon is above the overlay */
+    }
+
+    .menu-icon div {
+        width: 30px;
+        height: 3px;
+        background-color: #000;
+        margin: 6px 0;
+        transition: 0.4s;
+    }
+
+    .menu-icon.active div:nth-child(1) {
+        transform: rotate(-45deg) translate(-6px, 6px);
+    }
+
+    .menu-icon.active div:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-icon.active div:nth-child(3) {
+        transform: rotate(45deg) translate(-6px, -6px);
+    }
+    .overlay {
+        display: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 1); 
+        top: 0;
+        left: 0;
+        z-index: 5;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s;
+    }
+    
+    .overlay.active {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out, visibility 0s linear 0s;
+    }
+    .nav-work {
+        display: none;
+    }
+    .nav-work ul {
+        display: flex;
+        flex-direction: column;
+    }
+    .navigation {
+        opacity: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+    
+    .branding-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        max-width: 80%; /* Adjust max-width as needed */
+    }
+
+    .branding-list-item {
+        margin: 10px;
+        box-sizing: border-box;
+    }
+    
+    .branding-list img {
+        border-radius: 15px;
+    }
+    .branding-list a::after {
+    border-radius: 15px;
+    }
+
+.branding-list .branding-list-item::after {
+    border-radius: 15px;
+}
+
+    footer {
+        position: relative;
+        width: 100%;
+        height: 35px; /* 70% of the original height (50px) */
+        z-index: 2;
+    }
+
+    footer p,
+    footer img {
+        font-size: 70%; /* Make the content 30% smaller */
+    }
+}
+@media (max-width: 480px) {
+
+    .button-container {
+        margin-top: 30px;
+    }
+    .button {
+        width: calc(100% - 20px); /* 50% of container width minus margin */
+        height: 50px; /* Set height to 30px for smaller screens */
+        line-height: 50px; /* Adjust line height to vertically center text */
+    }
+    
+    footer {
+        position: relative;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 35px; /* 70% of the original height (50px) */
+        z-index: 2; /* Ensure it appears above other content */
+    }
+
+    footer p,
+    footer img {
+        font-size: 70%; /* Make the content 30% smaller */
+    }
+        
+}
+    </style>
+</head>
+<body>
+    <div class="overlay" onclick="closeMenu()"></div>
+    <header id="masthead">
+        <div class="header-container">
+            <div class="header-image">
+                <a href="index.html">
+                    <img src="./img/hi-im-quinn.png" alt="Hi, I'm Quinn" width="200px" height="auto">
+                </a>
+            </div>
+            <div class="menu-icon" onclick="toggleMenu()">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <nav id="site-navigation" class="main-navigation">
+                <ul>                    
+                    <li><a href="about.html"
+>ABOUT</a></li>
+                    <li><a href="index.html">WORK</a></li>
+                    <li><a href="contact.html"
+>CONTACT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div>
+        <div>
+            <nav class="nav-work">
+                <ul> 
+                    <li class="active"><a href="branding.html">BRANDING</a></li>
+                    <li><a href="illustration.html">ILLUSTRATION</a></li>
+                </ul>
+            </nav>
+        </div>    
+        <div class="navigation">
+            <a href="index.html">Work</a>
+            <img src="./img/arrow-right.png" alt="Arrow">
+            <a href="branding.html">Branding</a>
+        </div>
+    </div>
+    <div class="branding-list">
+            <a href="brandtober.html" class="branding-list-item" data-text="BRANDTOBER">
+                <img src="./img/branding-brandtober.png" alt="brandtober" width="500px" height="200px">
+            </a>
+            <a href="solar-burger.html" class="branding-list-item" data-text="SOLAR BURGER">
+                <img src="./img/branding-solar-burger.png" alt="solar burger" width="500px" height="200px">
+            </a>
+            <a href="kobe-honey.html" class="branding-list-item" data-text="KOBE HONEY">
+                <img src="./img/branding-kobe-honey.png" alt="kobe honey" width="500px" height="200px">
+            </a>
+            <a href="wichantel.html" class="branding-list-item" data-text="WICHANTEL">
+                <img src="./img/branding-wichantel.png" alt="wichantel" width="500px" height="200px">
+            </a>
+            
+    </div>
+    <div>
+        <a href="#" id="scrollTopButton" class="scroll-top-button" aria-label="Scroll to top">
+            <img src="./img/arrow-up.png" alt="scroll-top-button" width="50px" height="50px">
+        </a>
+    </div>
+    <footer>
+        <p> © </p>
+        <img src="img/hi-im-quinn-b&w.png" alt="" width="auto" height="15px">
+        <p>2025</p>
+    </footer>
+    <script>
+        function toggleMenu() {
+            var menu = document.querySelector('.main-navigation');
+            var menuIcon = document.querySelector('.menu-icon');
+            var overlay = document.querySelector('.overlay');
+            menu.classList.toggle('active');
+            menuIcon.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            var menu = document.querySelector('.main-navigation');
+            var menuIcon = document.querySelector('.menu-icon');
+            var overlay = document.querySelector('.overlay');
+            menu.classList.remove('active');
+            menuIcon.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+window.addEventListener('wheel', function(event) {
+    if (event.deltaY !== 0) {
+        event.preventDefault();
+        
+        var scrollStep = event.deltaY > 0 ? 100 : -100; // You can adjust the scrolling speed here
+        
+        var scrollPosition = window.scrollY + scrollStep;
+        
+        window.scrollTo({
+            top: scrollPosition,
+            behavior: 'smooth'
+        });
+    }
+});
+document.addEventListener('DOMContentLoaded', function() {
+    var currentPage = window.location.pathname.split('/').pop();
+    var navLinks = document.querySelectorAll('.main-navigation a');
+
+    navLinks.forEach(function(link) {
+        var linkPage = link.getAttribute('href').split('/').pop();
+        if (linkPage === currentPage) {
+            link.classList.add('active');
+        }
+    });
+});
+document.addEventListener('DOMContentLoaded', function() {
+    const internalLinks = document.querySelectorAll('a[href^="#"]');
+    
+    internalLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute('href').substring(1);
+            const target = document.getElementById(targetId);
+            
+            if (target) {
+                const offsetTop = target.offsetTop;
+                smoothScrollTo(offsetTop);
+            }
+        });
+    });
+
+    window.addEventListener('wheel', function(event) {
+        if (event.deltaY !== 0) {
+            event.preventDefault();
+            
+            var scrollStep = event.deltaY > 0 ? 500 : -350; 
+            
+            var scrollPosition = window.scrollY + scrollStep;
+            
+            smoothScrollTo(scrollPosition);
+        }
+    });
+});
+
+function smoothScrollTo(targetPosition) {
+    const currentPosition = window.scrollY;
+    
+    const distance = Math.abs(targetPosition - currentPosition);
+    
+    const duration = Math.min(1000, distance); 
+    
+    const startTime = performance.now();
+    
+    function scroll(timestamp) {
+        const elapsedTime = timestamp - startTime;
+        
+        const progress = Math.min(elapsedTime / duration, 1);
+        
+        const easedProgress = ease(progress);
+        
+        const newPosition = currentPosition + (targetPosition - currentPosition) * easedProgress;
+        
+        window.scrollTo(0, newPosition);
+        
+        if (progress < 1) {
+            requestAnimationFrame(scroll);
+        }
+    }
+    
+    requestAnimationFrame(scroll);
+}
+
+function ease(t) {
+    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+}
+document.addEventListener('DOMContentLoaded', function() {
+    const scrollTopButton = document.getElementById('scrollTopButton');
+    
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 500) { 
+            scrollTopButton.style.display = 'block';
+        } else {
+            scrollTopButton.style.display = 'none';
+        }
+    });
+
+    scrollTopButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        smoothScrollTo(0);
+    });
+});
+
+function smoothScrollTo(targetPosition) {
+    const currentPosition = window.scrollY;
+    
+    const distance = Math.abs(targetPosition - currentPosition);
+    
+    const duration = Math.min(1000, distance); 
+    
+    const startTime = performance.now();
+    
+    function scroll(timestamp) {
+        const elapsedTime = timestamp - startTime;
+        
+        const progress = Math.min(elapsedTime / duration, 1);
+        
+        const easedProgress = ease(progress);
+        
+        const newPosition = currentPosition + (targetPosition - currentPosition) * easedProgress;
+        
+        window.scrollTo(0, newPosition);
+        
+        if (progress < 1) {
+            requestAnimationFrame(scroll);
+        }
+    }
+    
+    requestAnimationFrame(scroll);
+}
+
+function ease(t) {
+    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+}
+
+</script>
+</body>
+</html>

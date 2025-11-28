@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
+    <title>Hi I'm Quinn</title>
+    <style>
+        body {
+    margin: 0;
+    padding: 0;
+    font-family: "Anton", sans-serif, "Roboto Flex", sans-serif;
+    text-align: center;
+    overflow-x: hidden;
+}
+* {box-sizing: border-box;}
+header {
+    background-color: #fff;
+    color: #333;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; 
+    box-sizing: border-box;
+    position: relative;
+    z-index: 999; 
+}
+.header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.header-image {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+
+.header-image a {
+    display: inline-block; /* Ensure the link doesn't stretch */
+}
+
+#site-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-icon {
+    display: none; /* Initially hide on larger screens */
+    cursor: pointer;
+    z-index: 800; /* Place the menu icon above the content */
+}
+
+.main-navigation {
+    display: flex;
+    position: relative;
+    justify-content:center;
+    background-color: #fff;
+    align-items: center;
+    transition: .5s;
+    /*margin: 0 auto;*/
+    z-index: 1; /* Place the menu below the content */
+}
+ .main-navigation ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    top: 50%;
+    right: 0;
+}
+
+.main-navigation li {
+    margin: 20px 50px;
+    /*list-style: none;
+    float: left;*/
+    position: relative;
+     
+}
+
+.main-navigation a {
+    font-size: 30pt; /* <------ NAVIGATION FONT SIZE */
+    text-decoration: none;
+    color: #000;
+    /*position: relative;
+    z-index: 1;*/
+    transition: color 0.3s ease;
+}
+
+
+.main-navigation a:hover {
+    color: #000;
+}
+
+.main-navigation a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #000;
+    transition: width 0.2s ease;
+}
+
+.main-navigation a:hover::after {
+    width: 100%;
+}
+.menu-toggle {
+    margin-top: 20px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.main-navigation a.active::after {
+    width: 100%;
+}
+.contact {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    width: fit-content;
+    margin: 50px auto;
+    font-size: 20pt;
+    font-family: 'roboto flex', sans-serif;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.tooltip {
+    text-decoration: none;
+    margin: 0 10px;
+    position: relative;
+    padding: 10px 20px;
+    background-color: #ffe4cd;
+    border: 3px solid #c24e76;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: #c24e76;
+}
+
+.tooltip:hover {
+    background-color: #c24e76;
+    color: white;
+}
+
+.tooltip::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: calc(100% + 15px); /* Move the tooltip down */
+    left: 50%; /* Center the tooltip horizontally */
+    transform: translateX(-50%);
+    color: #000;
+    background-color: #ffe4cd;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    font-family: 'Roboto Flex', sans-serif; /* Change font */
+    font-weight: 100; /* Set font weight to thin */
+    opacity: 0;
+    z-index: 1; /* Ensure the tooltip is above the button */
+    user-select: text; /* Allow text selection */
+    white-space: nowrap;
+
+}
+
+.tooltip:hover::before {
+    opacity: 1;
+}
+
+.tooltip::after {
+    content: "";
+    position: absolute;
+    top: calc(100% - 5px); /* Move the arrow up */
+    left: 50%;
+    transform: translateX(-50%);
+    border: 10px solid transparent;
+    border-bottom-color: #ffe4cd; /* Make the arrow match the background color */
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tooltip:hover::after {
+    opacity: 1;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffe4cd;
+    padding: 20px 50px;
+    border-radius: 15px;
+    z-index: 101;
+}
+
+.popup-message {
+    display: none; /* Initially hidden */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffe4cd;
+    color: #c24e76;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-family: 'Roboto Flex', sans-serif;
+    font-size: 16pt;
+    z-index: 200; /* Make sure it's above other elements */
+}
+
+.popup-content {
+    text-align: center;
+    font-family: 'roboto', sans-serif;
+    font-weight: 400;
+    font-size: 20pt;
+}
+
+.close {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    cursor: pointer;
+    font-family: 'roboto', sans-serif;
+    font-size: 40pt;
+    font-weight: thin;
+    color: #c24e76;
+}
+
+.close:hover {
+    color: black;
+}
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent black color */
+    z-index: 100; /* Ensure the overlay covers all elements */
+}
+
+
+footer {
+    display: flex;
+    text-align: center;
+    align-items: center; /* vertically */
+    justify-content: center; /* horizontally */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+footer img {
+    margin: auto 5px;
+}
+footer p {
+    font-family: "Roboto Thin", sans-serif; /* Use a font that has a thin weight */
+    font-size: small;
+}
+
+
+/* Responsive styles for mobile */
+@media (max-width: 768px) {
+    body {
+        overflow: hidden; /* Prevent scrolling when the menu is open */
+    }
+    .header-image {
+        margin-top: 30px;
+    
+    }
+    .main-navigation {
+        flex-direction: column;
+        align-items: flex-end;
+        background-color: #fff;
+        width: 100%;
+        display: none;
+        position: relative;
+        top: 40px;
+        right: 0;
+    }
+
+    .main-navigation.active {
+        display: flex;
+    }
+
+    .main-navigation ul {
+        flex-direction: column;
+        margin-right: 15px;
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        text-align: right;
+        margin-top: 100px;
+    }
+    .main-navigation.active ul {
+        display: flex;
+        flex-direction: column;
+    }
+    .main-navigation li {
+        margin: 15px 10px;
+        text-align: center; /* Align the text to the right */
+    }
+
+    .menu-icon {
+        display: block; /* Display on smaller screens */
+        position: absolute;
+        top: 25px;
+        right: 20px;
+        z-index: 7; /* Ensure the menu icon is above the overlay */
+    }
+
+    .menu-icon div {
+        width: 30px;
+        height: 3px;
+        background-color: #000;
+        margin: 6px 0;
+        transition: 0.4s;
+    }
+
+    .menu-icon.active div:nth-child(1) {
+        transform: rotate(-45deg) translate(-6px, 6px);
+    }
+
+    .menu-icon.active div:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-icon.active div:nth-child(3) {
+        transform: rotate(45deg) translate(-6px, -6px);
+    }
+    .overlay {
+        display: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 1); 
+        top: 0;
+        left: 0;
+        z-index: 5;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s;
+    }
+    
+    .overlay.active {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out, visibility 0s linear 0s;
+    }
+    .contact {
+        flex-direction: column; /* Change to a column layout */
+        align-items: center; /* Center items vertically */
+    }
+    .tooltip {
+        margin: 10px 0; /* Add margin between buttons */
+    }
+    .tooltip::before,
+    .tooltip::after {
+        display: none; /* Hide the tooltip and arrow */
+    }
+    .popup {
+        padding: 20px 30px 10px 30px;
+        
+    }
+    .popup-content {
+        font-size: 13pt;
+    }
+    .close {
+        font-size: 30pt;
+    }
+    footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 35px; /* 70% of the original height (50px) */
+        z-index: 2;
+    }
+
+    footer p,
+    footer img {
+        font-size: 70%; /* Make the content 30% smaller */
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="overlay" onclick="closeMenu()"></div>
+    <header id="masthead">
+        <div class="header-container">
+            <div class="header-image">
+                <a href="index.html">
+                    <img src="img/hi-im-quinn.png" alt="Hi, I'm Quinn" width="200px" height="auto">
+                </a>
+            </div>
+            <div class="menu-icon" onclick="toggleMenu()">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <nav id="site-navigation" class="main-navigation">
+                <ul>
+                    <li><a href="about.html"
+>ABOUT</a></li>
+                    <li><a href="index.html">WORK</a></li>
+                    <li><a href="contact.html"
+>CONTACT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="contact">
+        <a href="quinn.nguyen20@gmail.com" class="tooltip gmail" id="gmailButton" data-tooltip="Click to copy email">Gmail</a>
+        <a href="https://wa.link/0ffso3" class="tooltip" data-tooltip="https://wa.link/h3bhfd">Whatsapp</a>
+    </div>    
+    <div class="popup-overlay" id="popupOverlay"></div>
+    
+    <div class="popup-message" id="tempMessage">Email copied to clipboard</div>
+
+    <footer>
+        <p> © </p>
+        <img src="img/hi-im-quinn-b&w.png" alt="" width="auto" height="15px">
+        <p>2025</p>
+    </footer>
+    <script>
+         function toggleMenu() {
+        var menu = document.querySelector('.main-navigation');
+        var menuIcon = document.querySelector('.menu-icon');
+        var overlay = document.querySelector('.overlay');
+        menu.classList.toggle('active');
+        menuIcon.classList.toggle('active');
+        overlay.classList.toggle('active');
+    }
+
+    function closeMenu() {
+        var menu = document.querySelector('.main-navigation');
+        var menuIcon = document.querySelector('.menu-icon');
+        var overlay = document.querySelector('.overlay');
+        menu.classList.remove('active');
+        menuIcon.classList.remove('active');
+        overlay.classList.remove('active');
+    }
+
+    window.addEventListener('wheel', function(event) {
+        if (event.deltaY !== 0) {
+            event.preventDefault();
+            
+            var scrollStep = event.deltaY > 0 ? 100 : -100; // You can adjust the scrolling speed here
+            
+            var scrollPosition = window.scrollY + scrollStep;
+            
+            window.scrollTo({
+                top: scrollPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var currentPage = window.location.pathname.split('/').pop();
+        var navLinks = document.querySelectorAll('.main-navigation a');
+
+        navLinks.forEach(function(link) {
+            var linkPage = link.getAttribute('href').split('/').pop();
+            if (linkPage === currentPage) {
+                link.classList.add('active');
+            }
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const gmailButton = document.getElementById('gmailButton');
+        const emailText = "quinn.nguyen20@gmail.com"; 
+        const tempMessage = document.getElementById('tempMessage');
+
+        gmailButton.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            navigator.clipboard.writeText(emailText).then(function() {
+                tempMessage.style.display = 'block';
+
+                setTimeout(function() {
+                    tempMessage.style.display = 'none';
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Could not copy email: ', err);
+            });
+        });
+    });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
+    <title>Hi I'm Quinn</title>
+    <link rel="icon" type="image/x-icon" href="./img/icon-portfolio-web.png">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Anton", sans-serif, "Roboto Flex", sans-serif;
+            text-align: center;
+            overflow-x: hidden;
+            justify-content: center;
+            align-items: center;
+            overflow-y: scroll;
+            height: auto;
+            min-height: 100vh;
+        }
+        * {box-sizing: border-box;}
+        .photo-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+            justify-content: center;
+            align-items: center;
+        }
+        .grid-item img {
+            width: 100%;
+            height: auto;
+        }
+        .grid-item {
+            flex: 1 1 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+        }
+        .grid-item:nth-last-child(-n+2) {
+            flex: 1 1 50%;
+            max-width: 50%;
+        }
+        .swiper {
+            width: 100vw;
+            height: 63vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        .swiper-wrapper {
+            display: flex;
+            height: 100%;
+        }
+        .swiper-slide {
+            flex-shrink: 0;
+            width: auto;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .swiper-slide img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+        footer {
+            display: flex;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+        }
+        footer img {
+            margin: auto 5px;
+        }
+        footer p {
+            font-family: "Roboto Thin", sans-serif;
+            font-size: small;
+        }
+        #closeBtn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 1000;
+            display: inline-block;
+            transition: transform 0.4s ease-in-out;
+        }
+        #closeBtn img {
+            width: 30px;
+            height: 30px;
+            transition: transform 0.4s ease-in-out;
+        }
+        #closeBtn:hover img {
+            transform: rotate(180deg) scale(1.2);
+        }
+        #scrollTopBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: auto;
+            cursor: pointer;
+            z-index: 1000;
+            transition: none 0.3s ease;
+        }
+        #scrollTopBtn img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        #scrollTopBtn:hover {
+            animation: bounce 1s infinite alternate ease-in-out;
+        }
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+        @media (max-width: 768px) {
+            #scrollTopBtn {
+                width: 40px;
+                bottom: 40px;
+            }
+            .swiper {
+                height: calc(63vh * 0.5);
+            }
+            .grid-item:nth-last-child(-n+2) {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+            footer {
+                position: relative;
+                width: 100%;
+                height: 35px;
+                z-index: 2;
+            }
+            footer p, footer img {
+                font-size: 70%;
+            }
+        }
+        @media (max-width: 480px) {
+            .swiper {
+                height: calc(63vh * 0.5);
+            }
+            footer {
+                position: relative;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 35px;
+                z-index: 2;
+            }
+            footer p, footer img {
+                font-size: 70%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="photo-grid">
+        <div class="grid-item"><img src="./img/wichantel-item-02.jpg" alt=""></div>
+        <div class="grid-item"><img src="./img/wichantel-item-03.png" alt=""></div>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="./img/wichantel-item-pano-01.jpg" alt="Image 1"></div>
+                <div class="swiper-slide"><img src="./img/wichantel-item-pano-02.jpg" alt="Image 2"></div>
+            </div>
+        </div>
+        <div class="grid-item"><img src="./img/wichantel-item-04.png" alt=""></div>
+        <div class="grid-item"><img src="./img/wichantel-item-05.png" alt=""></div>
+        <div class="grid-item"><img src="./img/wichantel-item-06.jpg" alt=""></div>
+        <div class="grid-item"><img src="./img/wichantel-item-07.jpg" alt=""></div>
+        <div class="grid-item"><img src="./img/wichantel-item-08.jpg" alt=""></div>
+        <div class="grid-item"><img src="./img/wichantel-item-moodboard.jpg" alt=""></div>
+        <div class="grid-item"><img src="./img/wichantel-item-logo-idea.jpg" alt=""></div>
+        <div class="grid-item"><img src="./img/wichantel-item-sketch.jpg" alt=""></div>
+    </div>
+    <div id="closeBtn"><img src="./img/close-button@2x-8.png" alt=""></div>
+    <div id="scrollTopBtn"><img src="./img/arrow-up.png" alt="Go to top"></div>
+
+    <script src="script.js"></script>
+
+    <footer>
+        <p> © </p>
+        <img src="img/hi-im-quinn-b&w.png" alt="" width="auto" height="15px">
+        <p>2025</p>
+    </footer>
+
+    <script>
+        document.getElementById("closeBtn").addEventListener("click", function() {
+            window.location.href = "branding.html";
+        });
+
+        function scrollToTop() {
+            let startPosition = window.scrollY;
+            let duration = 400;
+            function scrollStep(timestamp) {
+                if (!startTime) startTime = timestamp;
+                let progress = timestamp - startTime;
+                let distance = Math.min(progress / duration, 1);
+                let scrollPosition = startPosition * (1 - distance);
+                window.scrollTo(0, scrollPosition);
+                if (distance < 1) {
+                    requestAnimationFrame(scrollStep);
+                }
+            }
+            let startTime = null;
+            requestAnimationFrame(scrollStep);
+        }
+
+        var scrollTopBtn = document.getElementById("scrollTopBtn");
+        scrollTopBtn.addEventListener("click", scrollToTop);
+    </script>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: "auto",
+            centeredSlides: false,
+            spaceBetween: 0,
+            loop: false,
+            allowTouchMove: true,
+            grabCursor: true,
+            speed: 8000,
+            resistanceRatio: 0,
+        });
+
+        let direction = 1;
+        swiper.on("transitionEnd", () => {
+            direction = swiper.isEnd ? -1 : swiper.isBeginning ? 1 : direction;
+            swiper.setTransition(8000);
+            swiper.slideTo(swiper.activeIndex + direction, 8000, false);
+        });
+
+        setTimeout(() => swiper.slideTo(swiper.activeIndex + direction, 8000, false), 500);
+    </script>
+</body>
+</html>
