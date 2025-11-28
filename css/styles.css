@@ -1,0 +1,494 @@
+location / {
+    try_files $uri $uri/ /index.html;
+}
+
+rewrite ^/index\.html$ / permanent;
+
+html {
+    scroll-behavior: smooth;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Anton", sans-serif, "Roboto Flex", sans-serif;
+    text-align: center;
+    overflow-x: hidden;
+}
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+* {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+main {
+    flex: 1; 
+}
+/* Loading Screen */
+#loading-screen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #fee4d5; /* Pink background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000; /* Make sure it stays on top of all content */
+    overflow: hidden; /* Ensure no scrollbars appear */
+    opacity: 1; /* Ensure the initial opacity is 1 */
+    animation: background-fade-out 1.5s forwards ease-in-out; /* Add background fade out */
+}
+
+/* Logo Effect */
+#loading-logo {
+    width: 800px;
+    height: auto;
+    opacity: 1;
+    transform: translateX(-100%); /* Start off-screen to the left */
+    animation: slide-in-fade-out 1.5s forwards ease-in-out; /* 2s animation */
+}
+
+@keyframes slide-in-fade-out {
+    0% {
+        transform: translateY(100%); /* Off-screen left */
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(0); /* Centered */
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100%); /* Off-screen right */
+        opacity: 0; /* Fade out */
+    }
+}
+@keyframes background-fade-out {
+    0% {
+        opacity: 1; /* Fully visible background */
+    }
+    80% {
+        opacity: 1; /* Background still fully visible */
+    }
+    100% {
+        opacity: 0; /* Background fades out at the same time as the logo */
+    }
+}
+
+
+/* Hide the loading screen after the animation */
+body.loaded #loading-screen {
+    display: none;
+}
+
+/* Hide the loading screen after the animation */
+body.loaded #loading-screen {
+    display: none;
+}
+
+header {
+    background-color: #fff;
+    color: #333;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Make the header full width */
+    box-sizing: border-box;
+    position: relative;
+    z-index: 999; /* Ensure the header is above the content */
+}
+.header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.header-image {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+
+.header-image a {
+    display: inline-block; /* Ensure the link doesn't stretch */
+}
+
+#site-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-icon {
+    display: none; /* Initially hide on larger screens */
+    cursor: pointer;
+    z-index: 800; /* Place the menu icon above the content */
+}
+
+.main-navigation {
+    display: flex;
+    position: relative;
+    justify-content:center;
+    background-color: #fff;
+    align-items: center;
+    transition: .5s;
+    /*margin: 0 auto;*/
+    z-index: 1; /* Place the menu below the content */
+}
+ .main-navigation ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    top: 50%;
+    right: 0;
+}
+
+.main-navigation li {
+    margin: 20px 50px;
+    /*list-style: none;
+    float: left;*/
+    position: relative;
+     
+}
+
+.main-navigation a {
+    font-size: 30pt; /* <------ NAVIGATION FONT SIZE */
+    text-decoration: none;
+    color: #232323;
+    /*position: relative;
+    z-index: 1;*/
+    transition: color 0.3s ease;
+}
+
+
+.main-navigation a:hover {
+    color: #000;
+}
+
+.main-navigation a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #000;
+    transition: width 0.2s ease;
+    border-radius: 150px;
+}
+
+.main-navigation a:hover::after {
+    width: 100%;
+}
+.main-navigation a.active::after {
+    width: 100%;
+}
+
+
+.menu-toggle {
+    margin-top: 20px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+
+
+
+
+/* main content from here */
+.button-container {
+    font-family: "Roboto Flex", sans-serif;
+    font-weight: bolder;
+    font-style: italic;
+    font-size: 18pt;
+    margin: 10px  100px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative; /* Ensure proper z-index stacking */
+    z-index: 1; /* Ensure the button container is above other elements */
+}
+
+.button-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 409.5px;
+    height: 234.5px;
+    background-color: #ffebdc;
+    margin: 10px; /* Adjust margin to create space between buttons */
+    text-align: center;
+    text-decoration: none;
+    color: #c24e76;
+    border-radius: 25px;
+    cursor: pointer; /* Change cursor to pointer on hover */
+    position: relative; /* Ensure proper z-index stacking */
+    z-index: 1; /* Ensure the buttons are above other elements */
+    overflow: hidden; /* Hide the image overflow */
+    transition: background-color 0.5s ease; /* Add transition for background color */
+}
+
+.button img {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0; /* Initially hide the image */
+    transition: opacity 0.5s ease; /* Add transition for opacity */
+}
+
+.button:hover img {
+    opacity: 1;
+}
+
+footer {
+    display: flex;
+    height: 40px;
+    background-color: #fff;
+    margin-top: 50px;
+    text-align: center;
+    align-items: center; /* vertically */
+    justify-content: center; /* horizontally */
+}
+footer img {
+    margin: auto 5px;
+}
+footer p {
+    font-family: "Roboto Thin", sans-serif; /* Use a font that has a thin weight */
+    font-size: small;
+    color: #232323;
+}
+
+
+
+/* Responsive styles for mobile */
+@media (max-width: 768px) {
+    /* Loading Screen adjustments */
+    #loading-screen {
+        background-color: #fee4d5; /* You can keep the background color the same */
+        animation: background-fade-out 1s forwards ease-in-out; /* Shorten the animation duration for smaller screens */
+    }
+
+    /* Logo Left-to-Right and Fade-Out Effect */
+    #loading-logo {
+        width: 300px; /* Scale down the logo for smaller screens */
+        height: auto;
+        opacity: 1;
+        transform: translateX(-100%); /* Start off-screen to the left */
+        animation: slide-in-fade-out 1s forwards ease-in-out; /* Shorten the animation duration */
+    }
+    
+    /* Reduce logo slide-in duration for smoother experience on smaller screens */
+    @keyframes slide-in-fade-out {
+        0% {
+            transform: translateY(100%);
+            opacity: 1;
+        }
+        50% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+    }
+    
+    /* Reduce background fade-out duration */
+    @keyframes background-fade-out {
+        0% {
+            opacity: 1;
+        }
+        80% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+
+
+    body {
+        overflow: hidden; /* Prevent scrolling when the menu is open */
+    }
+    .header-image {
+        margin-top: 30px;
+    
+    }
+    .main-navigation {
+        flex-direction: column;
+        align-items: flex-end;
+        background-color: #fff;
+        width: 100%;
+        display: none;
+        position: relative;
+        top: 40px;
+        right: 0;
+    }
+
+    .main-navigation.active {
+        display: flex;
+    }
+
+    .main-navigation ul {
+        flex-direction: column;
+        margin-right: 15px;
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        text-align: right;
+        margin-top: 100px;
+    }
+    .main-navigation.active ul {
+        display: flex;
+        flex-direction: column;
+    }
+    .main-navigation li {
+        margin: 15px 10px;
+        text-align: center; /* Align the text to the right */
+    }
+
+    .menu-icon {
+        display: block; /* Display on smaller screens */
+        position: absolute;
+        top: 25px;
+        right: 20px;
+        z-index: 7; /* Ensure the menu icon is above the overlay */
+    }
+
+    .menu-icon div {
+        width: 30px;
+        height: 3px;
+        background-color: #000;
+        margin: 6px 0;
+        transition: 0.4s;
+    }
+
+    .menu-icon.active div:nth-child(1) {
+        transform: rotate(-45deg) translate(-6px, 6px);
+    }
+
+    .menu-icon.active div:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-icon.active div:nth-child(3) {
+        transform: rotate(45deg) translate(-6px, -6px);
+    }
+    .overlay {
+        display: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 1); 
+        top: 0;
+        left: 0;
+        z-index: 5;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s;
+    }
+    
+    .overlay.active {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out, visibility 0s linear 0s;
+    }
+
+    .button-container {
+        width: 100%;
+        margin: 10px 20px; /* Adds padding around the container */
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center the buttons */
+    }
+    .button {
+        width: calc(100% - 40px); /* Ensures the button fits the screen with padding */
+        height: auto; /* Let the height adjust based on the image */
+        margin: 10px 0; /* Space between buttons */
+        border: none; /* Remove border if any */
+        background: none; /* Remove background color */
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+    }
+    
+    .button span {
+        display: none; /* Hide the text */
+    }
+
+    .button img {
+        display: block;
+        position: relative;
+        width: 100%; /* Ensure the image fits the button width */
+        height: auto;
+        opacity: 1; /* Ensure the image is fully visible */
+    }
+
+    footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 35px; /* 70% of the original height (50px) */
+        z-index: 2;
+    }
+
+    footer p,
+    footer img {
+        font-size: 70%; /* Make the content 30% smaller */
+    }
+
+}
+@media (max-width: 480px) {
+     /* Loading Screen adjustments */
+     #loading-screen {
+        background-color: #fee4d5;
+        animation: background-fade-out 0.8s forwards ease-in-out; /* Shorten the animation duration further */
+    }
+
+    /* Logo Left-to-Right and Fade-Out Effect */
+    #loading-logo {
+        width: 150px; /* Scale down the logo even more for very small screens */
+        height: auto;
+        opacity: 1;
+        transform: translateX(-100%);
+        animation: slide-in-fade-out 0.8s forwards ease-in-out; /* Further reduce the animation time */
+    }
+    
+    .button-container {
+        margin-top: 30px;
+    }
+    
+    footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 35px; /* 70% of the original height (50px) */
+        z-index: 2; /* Ensure it appears above other content */
+    }
+
+    footer p,
+    footer img {
+        font-size: 70%; /* Make the content 30% smaller */
+    }
+}
